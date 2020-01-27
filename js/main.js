@@ -11,12 +11,17 @@ let currentPage = null;
 // TODO: Create a function called `getCurrentPage()`. It should accept one
 // parameter, which is the `slug` for the current page. This function will fetch
 // the current page and return a page object using the `slug` value for a key.
-
+function getCurrentPage(slug) {
+    let newPage = storyData[slug];
+    return newPage;
+}
 
 
 // TODO: Create a function called `recordChoice()` that will accept a `slug`
 // parameter and add it to the `choiceList` Array (probably using `push()`).
-
+function recordChoice(slug) {
+    choiceList.push(slug);
+}
 
 
 // TODO: Create a function called `undoChoice()` that will remove the last
@@ -24,23 +29,26 @@ let currentPage = null;
 // `choiceList` Array.
 
 
+let pageContent = document.getElementById('story-text');
+let choicesUL = document.querySelector('#choices')
 
-// TODO: Create two variables: pageContent and choicesUL. Use a DOM selector
-// method (such as querySelector or getElementByID) to set the variable 
-// pageContent to the <p> element with the ID of 'story-text' and set the
-// variable choicesUL to the <ul> element with the ID 'choices'.
+function updatePage(newPage) {
+    pageContent.innerHTML = newPage.text;
+    choicesUL.innerHTML = '';
+    for (let choice of newPage.choices) {
+        let newLI = document.createElement('li');
+        newLI.innerHTML = choice.text;
+        newLI.setAttribute('data-slug', choice.link);
+        choicesUL.appendChild(newLI);
+    }
+    addEventListeners();
+}
 
-// TODO: Create a function called `updatePage()` that accepts a `page` parameter
-// and handles displaying the page in three steps:
-//  1. It should set the text of the pageContent equal to page.text (the text of
-//     the page).
-//  2. For each item in the array page.choices, it should create a new <li>
-//     element with the text of page.choices[i].text. In addition, the <li>
-//     element should have an attribute called 'data-slug' set to
-//     page.choices[i].link.
-//  3. At the end of the function, call the function addEventListeners().
-
-
+function changePage(slug) {
+    recordChoice(slug);
+    let currentPage = getCurrentPage(slug);
+    updatePage(currentPage);
+}
 
 // TODO: Create a function called `changePage()` that accepts a parameter called
 // `slug` and which handles "turning the page" in three steps:
