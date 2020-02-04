@@ -33,6 +33,10 @@ button#undo:hover {
     color: #fff;
 }
 
+img{
+    width:50%;
+}
+
 h1, h2 {
     font-family: Georgia, "Times New Roman", serif;
 }

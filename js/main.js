@@ -30,9 +30,16 @@ function undoChoice() {
 
 let pageContent = document.getElementById('story-text');
 let choicesUL = document.querySelector('#choices')
+let imageContent = document.getElementById('story-image');
 
 function updatePage(newPage) {
     pageContent.innerHTML = newPage.text;
+    if (newPage.image) {
+        imageContent.setAttribute('src', './images/' + newPage.image);
+    }
+    else {
+        imageContent.setAttribute('src', "./images/placeholder.png");
+    }
     choicesUL.innerHTML = '';
     for (let choice of newPage.choices) {
         let newLI = document.createElement('li');
@@ -71,6 +78,7 @@ var storyData = {
         text: `You are a crow. You are flying high above the
                 countryside. You see a farm off to the West, and your home forest
                 off to the East.`,
+        image: `p1.jpg`,
         choices: [
             {
                 text: `Fly over the farm to the West.`,
@@ -86,6 +94,7 @@ var storyData = {
                 enjoy a hot cup of tea!
                 <br><br>
                 The End.`,
+        image: `homeEnd.jpg`,
         choices: [
             {
                 text: `Play again?`,
